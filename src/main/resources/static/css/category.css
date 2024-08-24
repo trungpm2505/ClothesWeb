@@ -1,0 +1,36 @@
+#reset,#reset-color,#reset-size{
+       color: white;
+    background: #198754;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    position: absolute;
+    right: 30px;
+    top: 120px;
+}
+#reset-color,#reset-size{
+	top: 240px;
+}
+#reset:hover{
+	color: #198754;
+    background: white;
+    border: 2px solid green;
+   
+}
+#reset-color:hover{
+	color: #198754;
+    background: white;
+    border: 2px solid green;
+   
+}
+
+#reset-size:hover{
+	color: #198754;
+    background: white;
+    border: 2px solid green;
+   
+}
+
+#input-group{
+	width: 75%;
+}

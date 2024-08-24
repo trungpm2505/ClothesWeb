@@ -1,0 +1,105 @@
+
+<div
+	class="col-auto col-md-4 col-lg-2 px-sm-2 px-0 bg-slidebar min-vh-100"
+	th:fragment="slidebar">
+	<style>
+	.nav-link.active {
+		color: red;
+		font-weight: bold;
+}
+</style>
+
+	<div class=" flex-column align-items-sm-start px-3 pt-2">
+		<a href="#"
+			class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none ">
+			<i class="fs-4 fas fa-tachometer-alt"></i> <span
+			class="fs-5 d-none d-sm-inline"> Dashboard</span>
+		</a>
+		<ul class="nav nav-pills flex-column " id="menu">
+			<li><a href="oder.html"
+				class="nav-link align-middle text-white align-items-center rounded collapsed"
+				data-bs-toggle="collapse" data-bs-target="#dashboard-collapse-oder"
+				aria-expanded="false"> <i class="fs-4 fas fa-table"></i> <span
+					class="ms-1 d-none d-sm-inline" th:text = "#{orders}"></span>
+			</a>
+				<div class="collapse" id="dashboard-collapse-oder">
+					<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+						<li><a href="/order/admin/all"
+							class="nav-link text-warning kt-menu order-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{allOrder}"></span></a></li>
+						<li><a href="/order/admin/new"
+							class="nav-link text-warning kt-menu order-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{newOrder}"></span></a></li>
+						<li><a href="/order/admin/confirmed"
+							class="nav-link text-warning kt-menu order-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{confirmOrder}"></span></a></li>
+						<li><a href="/order/admin/completed"
+							class="nav-link text-warning kt-menu order-link"> <i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{completedOrder}"></span></a></li>
+						<li><a href="/order/admin/canceled"
+							class="nav-link text-warning kt-menu order-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{canceledOrder}"></span></a></li>
+					</ul>
+				</div></li>
+
+			<li><a href=""
+				class="nav-link align-middle text-white align-items-center rounded collapsed"
+				data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
+				aria-expanded="false"> <i class="fs-4 fas fa-th-large"></i> <span
+					class="ms-1 d-none d-sm-inline" th:text ="#{product}"></span>
+			</a>
+
+				<div class="collapse" id="dashboard-collapse">
+					<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+						<li><a href="/category"
+							class="nav-link text-warning kt-menu product-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{category}"></span></a></li>
+						<li><a href="/attributeValue"
+							class="nav-link text-warning kt-menu product-link"> <i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{attribiutes}"></span></a></li>
+						<li><a href="/product/admin"
+							class="nav-link text-warning kt-menu product-link"><i class="fas fa-chevron-right"></i> <span
+								class="d-none d-sm-inline" th:text ="#{product}"></span></a></li>
+					</ul>
+				</div></li>
+			<li><a href="/user/list"
+				class="nav-link  align-middle text-white"> <i
+					class="fs-4 fas fa-users"></i> <span class="ms-1 d-none d-sm-inline" th:text ="#{users}"></span>
+			</a></li>
+
+
+			<li><a href="/report" class="nav-link  align-middle text-white"> <i class="fs-4 fas fa-calendar-alt"></i> <span
+
+					class="ms-1 d-none d-sm-inline" th:text ="#{report}"></span>
+			</a></li>
+			<li><a href="/feedback/admin/list"
+				class="nav-link  align-middle text-white"> <i class="fs-4 fas fa-comment-dots"></i> <span
+					class="ms-1 d-none d-sm-inline" th:text ="#{feedback}"></span>
+			</a></li>
+		</ul>
+		<hr>
+
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var links = document.querySelectorAll('.nav-link');
+			var currentPage = window.location.pathname;
+
+			links.forEach(function(link) {
+				if (link.getAttribute('href') === currentPage) {
+					link.classList.add('active');
+					var parentCollapse = link.closest('.collapse');
+					if (parentCollapse) {
+						parentCollapse.classList.add('show');
+						var parentNavItem = parentCollapse.parentNode;
+						parentNavItem.classList.remove('collapsed');
+						parentNavItem.setAttribute('aria-expanded', 'true');
+					}
+				}
+			});
+		});
+	</script>
+
+</div>
+
+

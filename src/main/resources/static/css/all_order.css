@@ -1,0 +1,47 @@
+#all-order-table tr th {
+	color: #293a6c ;
+}
+
+.button-details{
+  background-color: #ffffff;
+  border-color: #2c7d2e;
+  border-width: 2px;
+  color: #2c7d2e;
+}
+
+.button-details:hover{
+  background-color: #2c7d2e;
+  
+  color: #ffffff;
+}
+
+.hide{
+	display: none;
+}
+
+
+.input-group{
+	margin-top: 22px;
+}
+
+.row{
+	height: 130px;
+}
+#reset{
+	
+	color: white;
+    background: #198754;
+    border: none;
+    border-radius: 10px;
+    padding: 0px 20px;
+    position: absolute;
+    right: 20px;
+    top: 160px;
+}
+
+#reset:hover{
+	color: #198754;
+    background: white;
+    border: 2px solid green;
+   
+}

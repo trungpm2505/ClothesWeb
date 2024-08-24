@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}" />
+<title>Document</title>
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+				<div class="col py-3">
+					<div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" th:text="#{orderDetails}"></h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="oder.html" class="btn btn-primary mb-3" type="button"><i
+                                class="fs-6 bi bi-arrow-left-circle-fill" onclick="goToBackOrder()"></i><span th:text="#{back}"></span></a>
+
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th th:text="#{number}">STT</th>
+                                    <th th:text="#{product}"></th>
+                                    <th th:text="#{quantity}"></th>
+                                    <th th:text="#{price}"></th>
+                                    <th th:text="#{curentPrice}"></th>
+                                    <th th:text="#{total}"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr th:each="orderDetail,index : ${orderDetailsResponseDtos}">
+                            	<td th:text="${index.count}"></td>
+							      <td th:text="${orderDetail.productResponseDto.title}"></td>
+							      <td th:text="${orderDetail.number}"></td>
+							      <td th:text="${orderDetail.price}"></td>
+							      <td th:text="${orderDetail.curentPrice}"></td>
+							      <td th:text="${orderDetail.totalMoney}"></td>
+							    </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card bg-light bg-gradient">
+                                    <div class="card-body row">
+                                        <h5 class="card-title text-center" th:text="#{orderInformation}"></h5>
+                                        <b class="col-6" th:text="#{codeLabel}"> </b>
+                                        <p class="col-6" th:text="${orderResponseDto.id}"> </p>
+                                        <b class="col-6" th:text="#{orderDate}"> </b>
+                                        <p class="col-6" th:text="${orderResponseDto.createAt}"> </p>
+                                        <th:block th:if="${orderResponseDto.completedAt}!=null">
+                                        	<b class="col-6" th:text="#{completedDate}"> </b>
+                                        	<p class="col-6" th:text="${orderResponseDto.completedAt}"> </p>
+                                        </th:block>
+                                        <b class="col-6" th:text="#{numberLable}"></b>
+                                        <p class="col-6" th:text="${number}"></p>
+                                        <b class="col-6"th:text="#{carriagePaidLabel}"></b>
+                                        <p class="col-6">30000đ</p>
+                                        <b class="col-6" th:text="#{paymentMethodLabel}"></b>
+                                        <p class="col-6" th:text="#{paymentOnDelivery}"></p>
+                                        <b class="col-6" th:text="#{statusLable}"></b>
+                                        <p class="col-6">
+                                        	<span th:switch="${orderResponseDto.status}">
+											    <span th:case="1" th:text="#{newOrder}"></span>
+											    <span th:case="2" th:text="#{canceledOrder}"></span>
+											    <span th:case="3" th:text="#{confirmOrder}"></span>
+											    <span th:case="4" th:text="#{completedOrder}"></span>
+										 	 </span>
+                                        </p>
+                                        <b class="col-6" th:text="#{totalReport}"> </b>
+                                        <p class="col-6 text-primary" th:text="${orderResponseDto.totalMoney}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card bg-light bg-gradient">
+                                    <div class="card-body row">
+                                        <h5 class="card-title text-center" th:text="#{shipmentDetails}"></h5>
+                                        <b class="col-6" th:text="#{fullNameLabel}"></b>
+                                        <p class="col-6" th:text="${orderResponseDto.fullName}"></p>
+                                        <!-- <b class="col-6">Email: </b>
+                                        <p class="col-6" th:text="${orderResponseDto.email}"></p> -->
+                                        <b class="col-6"  th:text="#{phoneLabel}"></b>
+                                        <p class="col-6" th:text="${orderResponseDto.phone}"></p>
+                                        <b class="col-6" th:text="#{addressLabel}"></b>
+                                        <p class="col-6" th:text="${orderResponseDto.address}"></p>
+                                        <b class="col-6 text-danger" th:text="#{note}"> </b>
+                                        <p class="col-6" th:text="${orderResponseDto.note}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+				</div>
+			
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script th:src="@{/js/order_details.js}" type="text/javascript"></script>
+		<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+</body>
+</html>

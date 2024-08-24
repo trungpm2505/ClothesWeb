@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/all_order.css}" />
+<title>Confirm order</title>
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+
+			<div class="col py-3">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary" th:text="#{allOrder}"></h6>
+					</div>
+					<div class="card-body">
+
+						<div class="row">
+							<div class="col-lg-4 ">
+								<div class="form-group">
+								  <label for="selectDate" th:text ="#{choosesTime}"></label>
+								  <select class="form-control" id="time">
+								  	<option value="choose" th:text ="#{time}"></option>
+								    <option value="today" th:text ="#{today}"></option>
+								    <option value="lastDate" th:text ="#{lastDate}"></option>
+								    <option value="date" th:text ="#{date}"></option>
+								    <option value="dateRange" th:text ="#{rangeDate}"></option>
+								  </select>
+								</div>
+								
+								<div class="form-group hide" id="date-wrap" >
+								  <label for="dateInput" th:text="#{dateLabel}"></label>
+								  <input type="date" class="form-control" id="dateInput">
+								</div>
+								<div class=" d-flex justify-content-between none">
+									<div class="form-group hide" id="startDate-wrap">
+									  <label for="dateInput" th:text="#{startDate}"></label>
+									  <input type="date" class="form-control" id="startDate">
+									</div>
+									<div class="form-group hide" id="endDate-wrap">
+									  <label for="dateInput" th:text="#{endDate}"></label>
+									  <input type="date" class="form-control" id="endDate">
+									</div>
+								</div>
+								<!-- status select -->
+								
+							</div>
+							
+							<div class="col-lg-4 mb-3">
+								
+									<div class="input-group">
+										
+										<input type="text" name="keyword12" value=""
+											class="form-control" id="key" placeholder="Enter keyword">
+										<div class="input-group-append">
+											<button id="searchButton"
+												class="btn btn-outline-secondary bg-success text-white">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						<button id="reset"><span><i class="fas fa-sync"></i></span></button>
+						<table th:id="confirmed-order-table" class="table table-bordered" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th th:text ="#{number}"></th>
+									<th th:text ="#{id}"></th>
+									<th th:text ="#{name}"></th>
+									<th th:text ="#{address}"></th>
+									<th th:text ="#{date}"></th>
+									<th th:text ="#{total}"></th>
+									<th th:text ="#{status}"></th>
+									<th th:text ="#{details}"></th>
+									<th th:text ="#{action}"></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th th:text ="#{number}"></th>
+									<th th:text ="#{id}"></th>
+									<th th:text ="#{name}"></th>
+									<th th:text ="#{address}"></th>
+									<th th:text ="#{date}"></th>
+									<th th:text ="#{total}"></th>
+									<th th:text ="#{status}"></th>
+									<th th:text ="#{details}"></th>
+									<th th:text ="#{action}"></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								
+							</tbody>
+						</table>
+						<nav class="float-right" th:id ="paging">
+							
+						</nav>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal refuse-->
+	<div class="modal fade" id="refuseOrder">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text ="#{refuseOrder}"></h5>
+	    <button th:class="close-delete" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    <p th:text="#{questionConfirmRefuse}"></p>
+	    <input type="hidden" th:id="orderIdRefuseModal" name="orderId">
+	    <input type="hidden" th:id="statusRefuseModal" name="status">
+	 
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" data-id="" data-update-status="2" class="btn btn-danger" th:id="refuse-order-modal" onclick='updateStatus(event)' th:text = "#{refuse}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script th:src="@{/js/confirmed_order.js}" type="text/javascript"></script>
+		<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+</body>
+</html>

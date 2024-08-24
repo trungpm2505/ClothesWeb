@@ -1,0 +1,102 @@
+<div th:fragment="navbar">
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg bg-slidebar">
+		<div class="container-fluid">
+			<a class="navbar-brand text-light" href="#"> <img
+				th:src="@{/images/clothes.png}" alt="Logo" width="40"
+				class="d-inline-block align-text-top">
+			</a>
+			<div class="collapse navbar-collapse" id="navbarScroll">
+				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+					style="--bs-scroll-height: 100px;">
+					<li class="nav-item"><a class="nav-link active text-light"
+						aria-current="page" href="#"><i class="fs-6 fas fa-home"></i>
+							 <span th:text="#{home}"></span></a></li>
+					<li class="nav-item"><a class="nav-link text-light" href="#"><i
+							class="fs-6 fas fa-comment-dots"></i> 0</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle text-light" href="#" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false"><i
+							class="fs-6 fas fa-plus"></i> <span th:text="#{newLabel}"></span> </a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="#">Something else
+									here</a></li>
+						</ul></li>
+					<li class="nav-item language-item">
+						<div class="dropdown">
+							<button class="btn btn-link dropdown-toggle language-toggle"
+								type="button" id="languageDropdown" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<img id="languageFlag"
+									src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png"
+									alt="Language" class="language-icon"> <span
+									id="selectedLanguage" th:text="#{valueLanguage}"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="languageDropdown">
+								<li><a class="dropdown-item" th:href="@{${#httpServletRequest.requestURI}(lang='en', key=(${param.key} != null ? ${param.key} : ''),category=(${param.category} != null ? ${param.category} : ''))}"
+									>
+										<img
+										src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png"
+										alt="English" class="language-icon" th:text="#{english}">
+								</a></li>
+								
+								<li><a class="dropdown-item" th:href="@{${#httpServletRequest.requestURI}(lang='vi', key=(${param.key} != null ? ${param.key} : ''),category=(${param.category} != null ? ${param.category} : ''))}"
+									>
+										<img
+										src="https://cdn.countryflags.com/thumbs/vietnam/flag-round-250.png"
+										alt="Vietnam" class="language-icon" th:text="#{vietnamese}"> 
+								</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+
+				<a href="#"
+					class="d-flex align-items-center text-white text-decoration-none"
+					data-bs-toggle="dropdown"> <img
+					src="https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png"
+					alt="image" width="30" height="30" class="rounded-circle"> <span
+					class="" th:text="${userName}"></span>
+				</a>
+
+				<!-- Dropdown Menu -->
+				<ul class="dropdown-menu dropdown-menu-end">
+					<li><a class="dropdown-item" th:href="@{/user/accountAdmin}">
+							<i class="fas fa-user-edit"></i> <span th:text="#{myAccount}"></span>
+					</a></li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li><a class="dropdown-item" href="/password/change/admin">
+							<i class="fas fa-key"></i> <span th:text="#{changePassword}"></span>
+					</a></li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<form id="logout-form" action="/logout" method="post">
+							<button type="submit" class="dropdown-item logout-btn">
+								<i class="fas fa-sign-out-alt"></i> <span th:text="#{logout}"></span>
+							</button>
+						</form>
+					</li>
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<script>
+		function changeLanguage(language, flagURL) {
+			document.getElementById('selectedLanguage').innerHTML = language;
+			document.getElementById('languageFlag').src = flagURL;
+		}
+	</script>
+	<!-- Navbar -->
+
+</div>
