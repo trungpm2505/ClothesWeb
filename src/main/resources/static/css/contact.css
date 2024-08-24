@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.contact-details {
+  margin-bottom: 20px;
+}
+
+.feedback-form {
+  max-width: 400px;
+  width: 100%;
+}
+
+
+.blue-color{
+	color: blue;
+}
+
+
+

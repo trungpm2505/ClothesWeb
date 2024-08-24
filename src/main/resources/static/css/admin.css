@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+.bg-slidebar {
+	background-color: #293a6c;
+}
+
+.nav-pills li a:hover {
+	background-color: blue;
+}
+
+.error {
+	height: 20px;
+}
+
+b {
+	color: rgb(12, 12, 178);
+}
+
+.table-image  td, th {
+	vertical-align: middle;
+}
+
+.kt-menu {
+	padding-left: 30px;
+}
+
+.title-category {
+	color: #3d3d9b;
+}
+
+.float-right {
+	float: right;
+}
+
+#reset {
+	color: white;
+	background: #198754;
+	border: none;
+	border-radius: 10px;
+	padding: 0px 20px;
+	position: absolute;
+	right: 20px;
+	top: 160px;
+}
+
+#reset:hover {
+	color: #198754;
+	background: white;
+	border: 2px solid green;
+}
+
+.language-item {
+	display: flex;
+	align-items: center;
+}
+
+.language-toggle {
+	color: #fff;
+	background-color: transparent;
+	border: none;
+}
+
+.language-icon {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+.dropdown-menu {
+	background-color: #f8f9fa;
+}
+
+.dropdown-item {
+	color: #212529;
+}
+
+.btn-link {
+	text-decoration: none;
+}

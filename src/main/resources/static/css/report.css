@@ -1,0 +1,63 @@
+@charset "ISO-8859-1";
+.report-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.219);
+}
+.price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.219);
+  }
+
+  .price-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .price-value {
+    font-size: 24px;
+    color: #007bff;
+  }
+  .hide{
+	display: none;
+}
+
+
+.input-group{
+	margin-top: 22px;
+}
+
+.row1{
+	display: flex;
+	height: 130px;
+}
+#reset{
+	
+	color: white;
+    background: #198754;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    position: absolute;
+    right: 90px;
+    top: 160px;
+}
+
+#reset:hover{
+	color: #198754;
+    background: white;
+    border: 2px solid green;
+   
+}
+
+#search{
+	margin-left: 20px
+}

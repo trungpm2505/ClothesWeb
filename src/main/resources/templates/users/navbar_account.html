@@ -1,0 +1,57 @@
+
+<div class="rhmIbk" th:fragment="navbar_account">
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-bs-toggle="collapse" data-bs-target="#collapseCate"
+		aria-expanded="true" aria-controls="collapseUtilities"
+		onclick="toggleProfile()"> <i class="fa fa-user-o fs-5"></i> <span th:text="#{myAccount}">
+				</span>
+	</a>
+		<div id="collapseCate" class="collapse"
+			aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/user/accountUser" onclick="openProfile()" th:text="#{profile}"></a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/password/change" th:text="#{changePassword}"></a>
+					</div>
+				</div>
+			</div>
+		</div></li>
+	<li class="nav-item fs-7"><a class="nav-link collapsed" href="#"
+		data-bs-toggle="collapse" data-bs-target="#donmua"
+		aria-expanded="true" aria-controls="collapseUtilities"
+		onclick="toggleProfile()"> <i class="fa fa-list-alt fs-5"></i> <span th:text ="#{myPurchase}">
+				</span>
+	</a>
+		<div id="donmua" class="collapse" aria-labelledby="headingUtilities"
+			data-bs-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<div class="row">
+					<div class="col-12">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/all-order" th:text="#{allOrder}"></a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/new-order" th:text="#{newOrder}"></a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/confirmed-order" th:text="#{confirmOrder}"></a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/completed-order" th:text="#{completedOrder}"></a>
+					</div>
+					<div class="col-12 mt-2">
+						<a class="collapse-item text-decoration-none"
+							style="margin-left: 40px;" href="/order/canceled-order" th:text="#{canceledOrder}"></a>
+					</div>
+				</div>
+			</div>
+		</div></li>
+</div>

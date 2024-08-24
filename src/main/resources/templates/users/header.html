@@ -1,0 +1,207 @@
+<div th:fragment="header">
+    <!-- Begin Header Area -->
+     <header class="li-header-4">
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Header Top Left Area -->
+                        <div class="col-lg-3 col-md-4">
+                            <div class="header-top-left">
+                                <ul class="head-wrap">
+                                    <li><a href="#"><i class="fas fa-phone-alt"></i> 1800 6565</a></li>
+                                    <li><a href="#"><span th:text="#{callOrder}"></span> <i class="fas fa-phone-alt"></i>  09099544444</a></li>
+    
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Left Area End Here -->
+                        <!-- Begin Header Top Right Area -->
+                        <div class="col-lg-9 col-md-8">
+                            <div class="header-top-right">
+                                <ul class="ht-menu">
+                                    <!-- Begin Setting Area -->
+                                    <!-- <li>
+                                        <div class="ht-setting-trigger"><span>Setting</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="login-register.html">My Account</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a href="login-register.html">Sign In</a></li>
+                                            </ul>
+                                        </div>
+                                    </li> -->
+                                    <!-- Setting Area End Here -->
+                                    <!-- Begin Currency Area -->
+    
+                                    <!-- <li>
+                                        <span class="currency-selector-wrapper">Currency :</span>
+                                        <div class="ht-currency-trigger"><span>USD $</span></div>
+                                        <div class="currency ht-currency">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="#">VND ₫</a></li>
+                                                <li class="active"><a href="#">USD $</a></li>
+                                            </ul>
+                                        </div>
+                                    </li> -->
+                                    <!-- Currency Area End Here -->
+    
+    
+                                    <!-- <li>
+                                        <span><i class="far fa-bell me-1"></i></span>
+                                        <a th:href="@{/user/register}">Notifications</a>
+                                    </li> -->
+                                    <li>
+                                        <span><i class="far fa-question-circle me-1"></i></span>
+                                        <a th:href="@{/user/feedback}" th:text="#{help}"></a>
+                                    </li>
+                                    <!-- Begin Language Area -->
+                                    <li>
+                                        <span class="language-selector-wrapper" th:text="#{language}"></span>
+                                        <div class="ht-language-trigger"><span th:text="#{valueLanguage}"></span></div>
+                                        <div class="language ht-language">
+                                            <ul class="ht-setting-list">
+                                                <li class="active"><a th:href="@{${#httpServletRequest.requestURI}(lang='en', key=(${param.key} != null ? ${param.key} : ''),category=(${param.category} != null ? ${param.category} : ''),orderId=(${param.orderId} != null ? ${param.orderId} : ''),productId=(${param.productId} != null ? ${param.productId} : ''))}"><img th:src="@{/images/el.jpg}"
+                                                            alt="" th:text="#{english}"></a></li>
+                                                <li><a th:href="@{${#httpServletRequest.requestURI}(lang='vi', key=(${param.key} != null ? ${param.key} : ''),category=(${param.category} != null ? ${param.category} : ''),,orderId=(${param.orderId} != null ? ${param.orderId} : ''),productId=(${param.productId} != null ? ${param.productId} : ''))}"><img th:src="@{/images/vn.jpg}" alt="" th:text="#{vietnamese}"></a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <!-- Language Area End Here -->
+                                    <li class="ht-user" th:if="${userName != null}">
+                                        <div class="dropdown">
+                                            <span class="user-icon">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                            <span th:class="userName" th:if="${userName != null}" th:text="${userName}"></span>
+                                            <div class="dropdown-content">
+                                                <a href="/user/accountUser" th:text="#{myAccount}" ></a>
+                                                <a href="/order/all-order" th:text="#{myPurchase}"></a>
+                                                <form id="logout-form" action="/logout" method="post">
+												    <button type="submit" th:text="#{logout}"></button>
+												</form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                     <li th:if="${userName == null}"><a href="/register" th:text="#{register}"></a></li>
+                                    <li th:if="${userName == null}"><a href="/login" th:text="#{login}"></a></li> 
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Header Top Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Header Logo Area -->
+                        <div class="col-lg-3">
+                            <div class="logo pb-sm-30 pb-xs-30">
+                                <a href="/product/user-home">
+                                    <img th:src="@{/images/3.png}" alt="logo" style="width: 40%;">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Header Logo Area End Here -->
+                        <!-- Begin Header Right Area -->
+                        <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+                            <!-- Begin Header Searchbox Area -->
+                            <div class="hm-searchbox height-search">
+                                <input id="key" class="height-search" type="text" placeholder="Enter your search key ...">
+                                <button id="search" class="li-btn height-search" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!-- Header Middle Searchbox Area End Here -->
+
+
+
+
+
+
+
+
+
+                            <div class="header-middle-right">
+                                <ul class="hm-menu">
+                                    <li class="hm-minicart">
+                                    <a class="cart-icon" href="/cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <!-- <div class="hm-minicart-trigger">
+                                            <span>
+                                                
+                                            </span>
+                                        </div> -->
+                                    </li>
+                                    <!-- <li class="hm-user">
+                                        <div class="dropdown">
+                                            <span class="user-icon">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                            <div class="dropdown-content">
+                                                <a href="#">My Account</a>
+                                                <a href="#">My Purchase</a>
+                                                <a href="#">Logout</a>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                </ul>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- Header Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Area End Here -->
+            <!-- Begin Header Bottom Area -->
+            <div class="header-bottom header-sticky stick d-none d-lg-block d-xl-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 ms-auto ps-1">
+                            <!-- Begin Header Bottom Menu Area -->
+                            <div class="hb-menu">
+                                <nav>
+                                    <ul>
+                                        <li><a href="/product/user-home" th:text="#{home}">Home</a></li>
+                                        <li><a href="/product/men-fashion"  th:text="#{menfashion}"></a></li>
+                                        <li><a href="/product/women-fashion" th:text="#{womenfashion}"></a></li>
+                                        <li><a href="/feedback/user/form" th:text="#{feedback}"></a></li>
+                                        <li><a href="/feedback/user/contact" th:text="#{contact}"></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Header Bottom Menu Area End Here -->
+                        </div>
+                        <!-- Begin Header Area -->
+                         
+                    </div>
+                </div>
+            </div>
+            <!-- Header Bottom Area End Here -->
+            <!-- Begin Mobile Menu Area -->
+            <div class="mobile-menu-area mobile-menu-area-4 d-lg-none d-xl-none col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="mobile-menu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area End Here -->
+        </header>
+        
+    <!-- Header Area End Here -->
+       <div class="category-wrap">
+        <div class="category" id="category-slider">
+		    
+		</div>
+	</div>
+</div>

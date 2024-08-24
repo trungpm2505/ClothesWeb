@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}" />
+<title>User</title>
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+
+			<div class="col py-3">
+				<h1 class="h3 mb-2 text-gray-800" th:text="#{userList}"></h1>
+
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary" th:text="#{userList}"></h6>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="offset-8 col-lg-4 mb-3">
+									<div class="input-group">
+										<input type="text" name="keyword" value=""
+											class="form-control" id="key-word" placeholder="Tìm theo tên">
+										<div class="input-group-append">
+											<button class="btn btn-primary" id="user-search">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+							</div>
+						</div>
+						<table th:id="user-table" class="table table-bordered"
+							width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th th:text="#{number}"></th>
+									<th th:text="#{fullName}"></th>
+									<th th:text="#{email}"></th>
+									<th th:text="#{phone}"></th>
+									<th th:text="#{address}"></th>
+									<th th:text="#{role}"></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th th:text="#{number}"></th>
+									<th th:text="#{fullName}"></th>
+									<th th:text="#{email}"></th>
+									<th th:text="#{phone}"></th>
+									<th th:text="#{address}"></th>
+									<th th:text="#{role}"></th>
+									<th></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr></tr>
+							</tbody>
+						</table>
+						<nav th:id="paging"></nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal delete-->
+	<div class="modal fade" id="deleteUser">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel" th:text="#{deleteUser}"></h5>
+					<button th:class="close-delete" type="button" class="close"
+						data-bs-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p th:text="#{deleteUserQuestion}"></p>
+					<input type="hidden" th:id="userIdDeleteModal"
+						name="userId">
+
+				</div>
+				<div class="modal-footer">
+					<button th:class="close-delete" type="button"
+						class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+					<button type="button" class="btn btn-danger"
+						th:id="delete-user" th:text="#{delete}"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- Modal edit-->
+	<div class="modal fade" id="editUser">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text="#{setRole}"></h5>
+	    <button th:class="close-edit" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    	<b th:text="#{roleName}"></b>
+	    	
+	    	<input th:id="userIdEditModal" class="form-control" onfocus=" loadRole()"
+				type="hidden" name="userId">
+			
+			<input th:id="roleNameEditModal" class="form-control"
+				type="hidden" name="roleName">
+			<select th:id="role" class="form-select"
+				aria-label="Default select example" >
+			</select> <small class="text-danger form-text error"></small>
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-edit" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" class="btn bg-primary" th:id="edit-role" th:text="#{update}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+	<script th:src="@{/js/user.js}" type="text/javascript"></script>
+	<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+</body>
+</html>

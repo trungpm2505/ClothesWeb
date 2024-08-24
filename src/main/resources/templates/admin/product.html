@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/product.css}" />
+
+<title>Document</title>
+
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+
+			<div class="col py-3">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+						<button class="nav-link active" id="nav-home-tab"
+							data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+							role="tab" aria-controls="nav-home" aria-selected="true" th:text="#{productList}"></button>
+						<button class="nav-link" id="nav-profile-tab" data-bs-toggle= "modal"
+		                data-bs-target="#saveProduct" type="button" role="tab"
+							aria-controls="nav-profile" aria-selected="false" th:text="#{addProduct}"></button>
+					</div>
+				</nav>
+				<br>
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-home"
+						role="tabpanel" aria-labelledby="nav-home-tab">
+						<div class="row">
+							<div class="col-lg-4 mb-3">
+								<div class="form-group">
+								  <label for="selectStatus" th:text="#{choosesStatus}"></label>
+								  <select th:id="category-select" class="form-select"
+									aria-label="Default select example" onfocus="loadCategory('category-select')">
+									<option  value='' selected>Choose category</option>
+								</select>
+								</div>		
+							</div>
+							
+							<div class=" col-lg-4 pt-4">
+								
+									<div class="input-group">
+										<input id="key" type="text" name="keyword5" value=""
+											class="form-control" placeholder="Tìm theo tên">
+										<div class="input-group-append">
+											<button id="searchButton" class="btn btn-primary">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+								
+							</div>
+							
+							<button id="reset"><span><i class="fas fa-sync"></i></span></button>
+						</div>
+						<table th:id ="product-table" class="table table-striped table-bordered table-image">
+							<thead>
+								<tr>
+									<th scope="col" th:text="#{number}"></th>
+									<th scope="col" th:text="#{image}"></th>
+									<th scope="col" th:text="#{title}"></th>
+									<th scope="col" th:text="#{category}"></th>
+									<th scope="col" th:text="#{size}"></th>
+									<th scope="col" th:text="#{color}"></th>
+									<th scope="col" th:text="#{gender}"></th>
+									<th scope="col" th:text="#{price}"></th>
+									<th scope="col" th:text="#{currentPrice}"></th>
+									<th scope="col" th:text="#{quantity}"></th>
+									<th scope="col" th:text="#{details}"></th>
+									<th scope="col" th:text="#{edit}"></th>
+									<th scope="col" th:text="#{delete}"></th> 
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+						<nav class="float-right" th:id="paging">
+							
+						</nav>
+					</div>
+				 
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal edit-->
+	<div class="modal fade" id="saveProduct" >
+	<div class="modal-dialog" style="max-width: 1000px;">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text="#{product}"></h5>
+	    <button th:class="close-edit" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	   	
+	    	<div>
+				<div >
+					<div>
+						<h6 th:text="#{productInformation}"></h6>
+					</div>
+					<div >
+						<input th:id="id" type="text" class="d-none"> 
+						<div class="input-group row">
+							<b class="col-2" th:text="#{titleLable}"></b>
+							<div class="col-7">
+								<input th:id="title" type="text" class="form-control"> 
+								<small style="height:15px" th:id="title-error" class="text-danger form-text error"></small>
+							</div>
+						</div>
+						<hr>
+						<div class="input-group row">
+							<b class="col-2" th:text ="#{categoryLabel}"></b>
+							<div class="col-7">
+								<select th:id="category" class="form-select"
+									aria-label="Default select example" onfocus="loadCategory('category')">
+									<option  value='' selected>Choose category</option>
+								</select> <small style="height:15px" th:id="category-error" class="text-danger form-text error"></small>
+							</div>
+						</div>
+						<hr>
+						<div class="input-group row">
+							<b class="col-2" th:text="#{sizeLabel}"></b>
+							<div class="col-4">
+								<select th:id="sizeSelect" class="form-select"
+									aria-label="Default select example" onfocus="loadAttributeValue('size','sizeSelect')">
+									<option  value='' selected>Choose size</option>
+								</select> <small th:id="sizeSelect-error" class="text-danger form-text error"></small>
+							</div>
+							<b class="col-1" th:text="#{colorLabel}"></b>
+							<div class="col-4">
+								<select th:id="colorSelect" class="form-select scrollable-select"
+									aria-label="Default select example" onfocus="loadAttributeValue('color','colorSelect')">
+									<option  value='' selected>Choose color</option>
+								</select> <small th:id="colorSelect-error" class="text-danger form-text error"></small>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<b class="col-2" th:text="#{priceLabel}"></b>
+							<div class="col-7">
+								<div class="input-group">
+									<input th:id="price" type="text" class="form-control"> <span
+										class="input-group-text">$</span>
+										<small style="height:15px;" th:id="price-error" class="text-danger form-text error"></small>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<b class="col-2" th:text="#{currentPriceLabel}"></b>
+							<div class="col-7">
+								<div class="input-group">
+									<input th:id="currentPrice" type="text" class="form-control"> <span
+										class="input-group-text">$</span>
+										<small style="height:15px" th:id="currentPrice-error" class="text-danger form-text error"></small>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<b class="col-2" th:text="#{quantityLabel}"></b>
+							<div class="col-7">
+								<div class="input-group">
+									<input th:id="quantity" type="text" class="form-control"> <span
+										class="input-group-text">$</span>
+										<small style="height:15px" th:id="quantity-error" class="text-danger form-text error"></small>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="input-group row">
+							<b class="col-2" th:text="#{genderLabel}"></b>
+							<div class="col-7">
+								<div  class="form-check form-check-inline">
+									<input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="inlineRadio1" value="true">
+									<label  class="form-check-label gender" for="inlineRadio1" th:text="#{male}" ></label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input th:class ="gender"  class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="inlineRadio2" value="false">
+									<label class="form-check-label" for="inlineRadio2" th:text="#{female}"></label>
+								</div>
+								<br><small style="height:15px" th:id="gender-error" class="text-danger form-text error"></small>
+							</div>
+						</div>
+						<hr>
+						<div class="input-group row">
+							<b class="col-2" th:text="#{descriptionLable}"></b>
+							<div class="col-7">
+								<textarea th:id="description" class="form-control" name=""
+									rows="3"></textarea>
+								<small style="height:15px" th:id="description-error" class="text-danger form-text error"></small>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<b class="col-2" th:text="#{imageLabel}"></b>
+							<div class="col-7">
+								<div class="input-group">
+									<input type="file" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2" th:id="file-input"
+										 multiple>
+									<button class="btn btn-danger" type="button"
+										onclick="clearImage()" id="button-addon2" th:text="#{clear}"></button>
+
+								</div>
+								<small style="height:15px" th:id="file-input-error" class="text-danger form-text error"></small>
+								<div th:id ="selected-images">
+								</div>
+							</div>
+							
+						</div>
+						
+						
+				
+						
+						
+					</div>
+				</div>
+			</div>
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-edit" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	   <button onclick="clearFrom()" class="btn btn-danger" type="button" th:text="#{clear}" ></button>
+	    <button type="button" class="btn bg-primary" th:id="save-product-value"  onclick="saveProduct()" th:text="#{add}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div> 
+	
+	<!-- Modal delete-->
+	<div class="modal fade" id="deleteProduct">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text="#{deleteProduct}"></h5>
+	    <button th:class="close-delete" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    <p th:text="#{deleteProductQuestion}"></p>
+	    <input type="hidden" th:id="productIdDeleteModal" name="productId">
+	 
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" class="btn btn-danger" th:id="delete-product-value" th:text="#{delete}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	
+	<!-- Modal detalis-->
+	<div class="modal fade" id="detailsProduct">
+	 <div class="modal-dialog" style="max-width: 700px;">
+	  <div class="modal-content">
+	   <div class="modal-header bg-primary text-white">
+	    <h5 class="modal-title color" id="exampleModalLabel" th:text="#{productDetails}"></h5>
+	    <button th:class="close-delete" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    <div class="container">
+		   
+		    <div class="row">
+		      <div class="col-md-12">
+		      	<input type="hidden" th:id="id-details">
+		        <p><strong class="colorTitle" th:text="#{titleLable}"></strong> <span th:id="title-details"></span></p>
+		        <div class="d-flex">
+			        <p class="col-md-6"><strong class ="color colorTitle">Price:</strong> <span th:id="price-details"></span></p>
+			        <p><strong class="colorTitle" th:text="#{currentPriceLabel}"></strong> <span th:id="current-price-details"></span></p>
+		        </div>
+		          <p><strong class="colorTitle" th:text="#{quantityLabel}"></strong> <span th:id="quantity-details"></span></p>
+		        
+		         <div class="d-flex">
+			        <p class="col-md-6 "><strong class="colorTitle" th:text="#{createAtLabel}"></strong> <span th:id="create-at-details"></span></p>
+			        <p ><strong class="colorTitle" th:text="#{updateAtLabel}"></strong> <span th:id="update-at-details"></span></p>
+		        </div>
+		         <div class="d-flex">
+			        <p class="col-md-6 "><strong class="colorTitle" th:text="#{categoryLabel}"></strong> <span th:id="category-details"></span></p>
+			        <p><strong class="colorTitle" th:text="#{genderLabel}"></strong> <span th:id="gender-details"></span></p>
+		        </div>
+		         <div class="d-flex ">
+			        <p class="col-md-6 "><strong class="colorTitle" th:text="#{sizeLabel}"></strong> <span th:id="size-details"></span></p>
+			        <p><strong class="colorTitle" th:text="#{colorLabel}"></strong> <span th:id="color-details"></span></p>
+		       </div>
+		       
+		      </div>
+		      <div class="col-md-12">
+		        <p class="colorTitle"><strong th:text="#{descriptionLable}"></strong></p>
+		        <p th:id="description-details"></p>
+		      </div>
+		      <!-- rating -->
+		      <div class="container">
+	            <div style="display: contents;">
+	                <div class="product-ratings" data-nosnippet="true">
+	                    <div class="product-ratings__header">
+	                        <div class="product-ratings__header_score" th:text="#{productRatings}"></div>
+	                    </div>
+	                    <div class="product-rating-overview">
+	                        <div class="product-rating-overview__briefing">
+	                            <div class="product-rating-overview__score-wrapper"><span
+	                                    class="product-rating-overview__rating-score">5.0</span><span
+	                                    class="product-rating-overview__rating-score-out-of" th:text="#{outOf}"> </span></div>
+	                            <div class="shopee-rating-stars product-rating-overview__stars">
+	                                <div class="shopee-rating-stars__stars">
+	
+	                                    <div class="shopee-rating-stars__star-wrapper">
+	                                        <div class="rating-box">
+	                                            <ul class="rating-icon rating-with-review-item">
+	                                                <li><i class="fas fa-star"></i></li>
+	                                                <li><i class="fas fa-star"></i></li>
+	                                                <li><i class="fas fa-star"></i></li>
+	                                                <li><i class="fas fa-star"></i></li>
+	                                                <li><i class="fas fa-star"></i></li>
+	                                            </ul>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="product-rating-overview__filters">
+	                            <div class="product-rating-overview__filter selected"  ><a data-rating ="0" class="search-rating" th:text="#{all}"></a></div>
+	                            <div class="product-rating-overview__filter"  ><a data-rating ="5" class="search-rating" th:text="5 +''+ #{star}"> 
+	                                    (5,9k)</a></div>
+	                            <div class="product-rating-overview__filter"  ><a data-rating ="4" class="search-rating" th:text="4 +''+ #{star}"> 
+	                                    (214)</a></div>
+	                            <div class="product-rating-overview__filter" ><a data-rating ="3" class="search-rating" th:text="3+''+ #{star}">
+	                                    (67)</a></div>
+	                            <div class="product-rating-overview__filter"  ><a data-rating ="2" class="search-rating" th:text="2 +''+ #{star}">
+	                                    (25)</a></div>
+	                            <div class="product-rating-overview__filter" ><a  data-rating ="1" class="search-rating" th:text="1 +''+ #{star}">
+	                                    (25)</a></div>
+	                        </div>
+	                  
+	                    </div>
+	                    <div class="product-ratings__list" style="opacity: 1;">
+	                        <div class="shopee-product-comment-list">
+	                            
+	
+	                        </div>
+	
+	                    </div>
+	                </div>
+	            </div>
+	             
+	        </div>
+		<div class="container-paging">
+		<nav  th:id="paging-rating"></nav>
+		</div>
+		    </div>
+		  </div>
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	   
+	   </div>
+	  </div>
+	 </div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+	<script th:src="@{/js/product.js}" type="text/javascript"></script>
+	<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+	
+</body>
+</html>

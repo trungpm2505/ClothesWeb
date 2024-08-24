@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<link type="text/css" rel="stylesheet"  th:href="@{/css/admin.css}"/>
+<link type="text/css" rel="stylesheet"  th:href="@{/css/category.css}"/>
+<title>Category</title>
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+
+			<div class="col py-3">
+				<div class="row">
+                    <h3 class="title-category" th:text ="#{productCategory}"></h3><br><br>
+                    <div class="col-6">
+                        <p th:text="#{categoryContent}">
+                        </p>
+                        <h6 th:text="#{addNewCategory}"></h6>
+                        <div class="form-group">
+                            <b for="name" th:text="#{categoryName}"></b>
+                            <input th:id="categoryNameInput" class="form-control" type="text" name="">
+                            <small style="height:20px" th:id="categoryNameInput-error" class="text-danger form-text"></small><br>
+                            <small class="form-text text-muted" th:text="#{categoryNameContent}"></small>
+                        </div><br>
+                
+                
+                        <button class="btn btn-primary" type="button" onclick="addCategory()" th:text="#{addNewCategory}"></button>
+                    </div>
+                    
+                    <div class="col-6">
+                    	<div class="row col-lg-10 d-flex">
+							<div class=" col-lg-12 mb-4">
+									<div class="input-group">
+										<input type="text" name="keyword5" value=""
+											class="form-control" id="key-word" placeholder="Enter keyword">
+										<div class="input-group-append">
+											<button class="btn btn-primary" id="category-search">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+										
+									</div>
+									
+							</div>
+							
+							
+						</div>
+						<button  id="reset"><span><i class="fas fa-sync"></i></span></button>
+                        <table th:id="category-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" th:text="#{number}"></th>
+                                    <th scope="col" th:text="#{name}"></th>
+                                    <th scope="col" th:text="#{edit}"></th>
+                                    <th scope="col" th:text="#{delete}"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
+                        </table>
+                        <nav class="float-right" th:id="paging"></nav>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+
+<!-- Modal delete-->
+	<div class="modal fade" id="deleteCategory">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text="#{deleteAttributeValue}"></h5>
+	    <button th:class="close-delete" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    <p th:text="#{deleteQuestion}"></p>
+	    <input type="hidden" th:id="categoryIdDeleteModal" name="categoryId">
+	 
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" class="btn btn-danger" th:id="delete-category-value" th:text="#{delete}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	
+	<!-- Modal edit-->
+	<div class="modal fade" id="editCategory">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text ="#{editAttributeValue}"></h5>
+	    <button th:class="close-edit" type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	   </div>
+	   <div class="modal-body">
+	    	<b for="name" th:text="#{name}"></b> 		
+	    	
+	    	<input th:id="attributeValueIdModal" class="form-control"
+				type="hidden" name="categoryIdEditModal">
+			
+			<input th:id="categoryNameEditModal" class="form-control"
+				type="text" name="attributeValueName">
+			<small style="height:20px" th:id="categoryNameEditModal-error" class="text-danger form-text"></small><br>
+	    <input type="hidden" th:id="attributeValueId" name="attributeValue">
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-edit" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" class="btn bg-primary" th:id="edit-category-value" th:text="#{update}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+	<script th:src="@{/js/category.js}" type="text/javascript"></script>
+	<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+</body>
+</html>

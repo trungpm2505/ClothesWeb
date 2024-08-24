@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#divToken{
+	transform: translateX(-50%);
+    width: 30%;
+    position: relative;
+    left: 50%;
+    top: 100px;
+}
+
+.lableTitle{
+	font-weight: 600;
+    margin-bottom: 10px;
+}
+#email{
+    margin-bottom: 10px;
+}

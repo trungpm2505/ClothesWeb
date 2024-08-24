@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/lib-admin/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" th:href="@{/css/admin.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/feedbackAdmin.css}" />
+<title>Feedback</title>
+</head>
+<body>
+	<!-- navbar -->
+	<div th:replace="admin/navbar :: navbar"></div>
+	<!-- navbar -->
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
+
+			<div th:replace="admin/slidebar :: slidebar"></div>
+
+			<div class="col py-3">
+				<h1 class="h3 mb-2 text-gray-800" th:text="#{feedback}"></h1>
+
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary" th:text="#{feedbackList}"></h6>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="offset-8 col-lg-4 mb-3">
+									<div class="input-group">
+										<input type="text" name="keyword" value="" id="key-word"
+											class="form-control" placeholder="Tìm theo tên">
+										<div class="input-group-append">
+											<button class="btn btn-primary" id="feedback-search">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+							</div>
+						</div>
+						<table th:id="feedback-table" class="table table-bordered" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th th:text="#{number}">STT</th>
+									<th th:text="#{fullName}"></th>
+									<th th:text="#{email}"></th>
+									<th th:text="#{dateFeedback}"></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th th:text="#{number}">STT</th>
+									<th th:text="#{fullName}"></th>
+									<th th:text="#{email}"></th>
+									<th th:text="#{dateFeedback}"></th>
+									<th></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Pham Minh Trung</td>
+									<td>trungpmpd05907@fpt.edu.vn</td>
+									<td>2023-05-09</td>
+									<td><a href="feedbackDetail" class="btn btn-success"><i class="fas fa-eye"></i></a> <a href="" class="btn btn-danger">
+									<i class="fas fa-trash"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+						<nav  th:id="paging"></nav>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal delete-->
+	<div class="modal fade" id="deleteFeedback">
+	 <div class="modal-dialog">
+	  <div class="modal-content">
+	   <div class="modal-header">
+	    <h5 class="modal-title" id="exampleModalLabel" th:text="#{deleteFeedback}"></h5>
+	   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	   </div>
+	   <div class="modal-body">
+	    <p  th:text="#{deleteFeedbackQuestion}"></p>
+	    <input type="hidden" th:id="feedbackIdDeleteModal" name="feedbackId">
+	 
+	  </div>
+	  <div class="modal-footer">
+	   <button th:class="close-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{cancel}"></button>
+	    <button type="button" class="btn btn-danger" th:id="delete-feedback" th:text="#{delete}"></button>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	
+	<!-- Modal view-->
+	<div class="modal fade" id="viewFeedback" tabindex="-1" aria-labelledby="viewFeedbackLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header bg-primary text-white">
+	        <h5 class="modal-title" id="viewFeedbackLabel" th:text="#{feedbackDetails}"></h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <input type="hidden" id="feedbackIdViewModal" name="feedbackId">
+	        <div class="mb-3">
+	          <label class="form-label" th:text="#{fullNameLabel}"></label>
+	          <span id="fullName" class="form-value"></span>
+	        </div>
+	        <div class="mb-3">
+	          <label class="form-label" th:text="#{emailLable}"></label>
+	          <span id="email" class="form-value"></span>
+	        </div>
+	        <div class="mb-3">
+	          <label class="form-label" th:text="#{phoneLabel}"></label>
+	          <span id="phone" class="form-value"></span>
+	        </div>
+	        <div class="mb-3">
+	          <label class="form-label" th:text="#{subjectName}"></label>
+	          <span id="subjectName" class="form-value"></span>
+	        </div>
+	        <div class="mb-3">
+	          <label class="form-label" th:text="#{noteFeedback}"></label>
+	          <span id="note" class="form-value"></span>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/lib-admin/bootstrap.min.js}" type="text/javascript"></script>
+	
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+	<script th:src="@{/js/feedback.js}" type="text/javascript"></script>
+	<script th:src="@{/js/logout.js}" type="text/javascript"></script>
+</body>
+</html>
